@@ -1,6 +1,6 @@
 <?php
 
-include('simple_html_dom.php');
+require 'simplehtmldom/simple_html_dom.php';
 // Парсим страницу с сайта
 $allo = file_get_html("https://allo.ua/ru/kofemashiny/smart_upravlenie-est/");
 

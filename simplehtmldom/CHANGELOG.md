@@ -3,9 +3,68 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.9.1] - 2019-10-20
+## [2.0-RC1] - 2019-10-20
+
+**Important**: This is a release **candidate**, which means some features might not yet be stable or emit unexpected behavior. Please don't hesitate to report broken or unstable features.
+
+### Added
+- Added unit tests
+  - Added tests for whitespace handling.
+  - Added tests for entity decoding.
+  - Added tests for node functions after calling remove().
+  - Added tests for `maxLen` in `file_get_html`.
+  - Added tests for `simple_html_dom_node`.
+  - Added tests for `HtmlWeb`.
+  - Added test for bug [#172](https://sourceforge.net/p/simplehtmldom/bugs/172/)
+- Added optional argument `$trim = true` to `$node->text()`
+- Added attribute value normalization
+  - https://www.w3.org/TR/html/syntax.html#attribute-values
+  - https://www.w3.org/TR/xml/#AVNormalize
+- Added automatic HTML entity decoding when loading documents [feature:#52]
+- Added [the negation pseudo-class](https://www.w3.org/TR/selectors-3/#negation)
+- Added `simple_html_dom::expect()`.
+- Added `simple_html_dom_node::expect()`.
+- Added the ability to parse CDATA sections.
+- Added `HtmlWeb` to directly load webpages via cURL or fopen as DOM.
+- Added `HtmlDocument`, `HtmlNode`, `HtmlWeb` and `constants` to namespace `simplehtmldom`.
+- Added a new element type `HDOM_TYPE_CDATA` for CDATA sections.
+- Added full support for parsing comments and CDATA sections.
+### Changed
+- `simple_html_dom::doc` is now unset after loading the DOM.
+- `simple_html_dom::restore_noise()` now clears restored elements.
+- `simple_html_dom_node::_[HDOM_INFO_ENDSPACE]` now only exists if needed.
+- `simple_html_dom_node::_[HDOM_INFO_SPACE]`
+  - Now stores elements by attribute names.
+  - Now only exists if needed (defaults to `array(' ', '', '')`).
+- `simple_html_dom_node::_[HDOM_INFO_QUOTE]`
+  - Now stores elements by attribute names.
+  - Now only exists if needed (defaults to `HDOM_QUOTE_DOUBLE`).
+- `simple_html_dom_node::text()` now supports all block and inline level elements.
+- `simple_html_dom_node::text()` now skips empty block elements.
+- `simple_html_dom_node::text()` now properly handles `&nbsp` characters.
+- `simple_html_dom_node::removeChild()` now removes all types of childs.
+- Increased `MAX_FILE_SIZE` from 0.6 MB (600000 Bytes) to 2.5 MiB (2621440 Bytes)
+- `HDOM_INFO_INNER` (innertext) is now stored as part of the owning element.
+- Moved and renamed `simple_html_dom` to `HtmlDocument`.
+- Moved and renamed `simple_html_dom_node` to `HtmlNode`.
+- Moved constants to `constants.php`
+- Moved `HDOM_TYPE_*`, `HDOM_INFO_*` and `HDOM_QUOTE_*` constants into `HtmlNode`.
+### Removed
+- Removed `/example/scraping/example_scraping_general.php`.
+- Removed `/example/simple_html_dom_utility.php`.
+- Removed `/app`.
+- Removed `/testcase/reader`.
+- Removed `simple_html_dom_node::tag_start`.
 ### Fixed
-- Fixed broken "text" selectors [#175](https://sourceforge.net/p/simplehtmldom/bugs/175/)
+- Fixed fatal error when removing nodes from the DOM (#172)
+- Fixed `simple_html_dom::parse()` to work after removing elements from the DOM.
+- Fixed `simple_html_dom_node::text()` to properly handle UTF-8 characters.
+- Fixed all scripts in the example folder.
+- Fixed `file_get_html` to return false if the file size is larger than `maxLen`.
+- Fixed a bug that caused the parser to convert UTF-8 to UTF-8 on mistake.
+- Fixed `simple_html_dom::loadFile` to properly forward arguments to `simple_html_dom::load_file`.
+- Fixed handling of optional closing tags to end on the last element.
+- Fixed broken support for `text` nodes when using `find` (#175).
 
 ## [1.9] - 2019-05-30
 ### Added
