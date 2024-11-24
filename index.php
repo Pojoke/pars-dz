@@ -1,17 +1,17 @@
 <?php
 
-require 'simplehtmldom-master_/simple_html_dom.php';
+require 'simplehtmldom-master/simple_html_dom.php';
 // Парсим страницу с сайта
-$rozetka = file_get_html("https://allo.ua/ru/kofemashiny/smart_upravlenie-est/");
+$allo = file_get_html("https://allo.ua/ru/kofemashiny/smart_upravlenie-est/");
 
 $links = [];
 $names = [];
 
 // Проверяем, что элемент найден и считаем количество
-$card_titles = count($rozetka->find('.product-card__content .product-card__title'));
+$card_titles = count($allo->find('.product-card__content .product-card__title'));
 
 if ($card_titles > 0) {
-    foreach ($rozetka->find('.product-card__content .product-card__title') as $a) {
+    foreach ($allo->find('.product-card__content .product-card__title') as $a) {
         // Проверяем, что у элемента есть атрибут href
         if (isset($a->href)) {
             $links[] = $a->href;
