@@ -1,6 +1,6 @@
 <?php
 
-
+require 'simplehtmldom-master';
 // Парсим страницу с сайта
 $rozetka = file_get_html("https://allo.ua/ru/kofemashiny/smart_upravlenie-est/");
 
